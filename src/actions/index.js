@@ -8,7 +8,6 @@ import {
 	FETCH_STREAMS,
 } from './types';
 import streams from '../apis/streams';
-import { withRouter } from 'react-router-dom';
 
 export const signIn = (userId) => {
 	return {
