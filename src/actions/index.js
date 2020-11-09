@@ -8,6 +8,7 @@ import {
 	FETCH_STREAMS,
 } from './types';
 import streams from '../apis/streams';
+import { withRouter } from 'react-router-dom';
 
 export const signIn = (userId) => {
 	return {
@@ -22,7 +23,7 @@ export const signOut = () => {
 	};
 };
 
-export const createStream = (formValues) => {
+export const createStream = (formValues, history) => {
 	return async (dispatch, getState) => {
 		//take out userId from state
 		const { userId } = getState().auth;
@@ -32,6 +33,8 @@ export const createStream = (formValues) => {
 			type: CREATE_STREAM,
 			payload: response.data,
 		});
+
+		if (history) history.push('/');
 	};
 };
 
