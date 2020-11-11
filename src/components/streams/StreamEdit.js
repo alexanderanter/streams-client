@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchStreams } from '../../actions';
+import { fetchStream } from '../../actions';
 
 class StreamEdit extends React.Component {
 	componentDidMount() {
-		this.props.fetchStreams();
+		this.props.fetchStream(this.props.match.params.id);
 	}
 	render() {
 		return (
@@ -18,11 +18,13 @@ class StreamEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+	console.log(state);
 	return {
-		streams: state.streams,
 		stream: state.streams[ownProps.match.params.id],
+		// streams: state.streams,
+		// stream: state.streams[ownProps.match.params.id],
 		//selecting the correct stream by getting the selected id from the url,
 		// the id parameter value stored in the match prop
 	};
 };
-export default connect(mapStateToProps, { fetchStreams })(StreamEdit);
+export default connect(mapStateToProps, { fetchStream })(StreamEdit);
