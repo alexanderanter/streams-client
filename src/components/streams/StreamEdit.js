@@ -7,6 +7,9 @@ class StreamEdit extends React.Component {
 		this.props.fetchStream(this.props.match.params.id);
 	}
 	render() {
+		if (!this.props.stream) {
+			return <div> Loading... </div>;
+		}
 		return (
 			<div>
 				<h2>Edit Stream</h2>
@@ -18,13 +21,8 @@ class StreamEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state);
 	return {
 		stream: state.streams[ownProps.match.params.id],
-		// streams: state.streams,
-		// stream: state.streams[ownProps.match.params.id],
-		//selecting the correct stream by getting the selected id from the url,
-		// the id parameter value stored in the match prop
 	};
 };
 export default connect(mapStateToProps, { fetchStream })(StreamEdit);
