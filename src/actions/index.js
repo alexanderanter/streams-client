@@ -1,3 +1,5 @@
+import streams from '../apis/streams';
+import history from '../history';
 import {
 	SIGN_IN,
 	SIGN_OUT,
@@ -7,7 +9,6 @@ import {
 	FETCH_STREAM,
 	FETCH_STREAMS,
 } from './types';
-import streams from '../apis/streams';
 
 export const signIn = (userId) => {
 	return {
@@ -22,7 +23,8 @@ export const signOut = () => {
 	};
 };
 
-export const createStream = (formValues, history) => {
+// export const createStream = (formValues, history) => {
+export const createStream = (formValues) => {
 	return async (dispatch, getState) => {
 		//take out userId from state
 		const { userId } = getState().auth;
@@ -32,8 +34,8 @@ export const createStream = (formValues, history) => {
 			type: CREATE_STREAM,
 			payload: response.data,
 		});
-
-		if (history) history.push('/');
+		history.push('/');
+		// if (history) history.push('/');
 	};
 };
 
