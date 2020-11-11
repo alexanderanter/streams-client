@@ -1,11 +1,21 @@
 import React from 'react';
 import Modal from '../Modal';
 import history from '../../history';
+import { deleteStream } from '../../actions';
+import { connect } from 'react-redux';
 
-const StreamDelete = () => {
+const StreamDelete = (props) => {
+	const onDismiss = () => {
+		history.push('/');
+	};
+	const onDeleteClick = () => {
+		props.deleteStream(props.match.params.id);
+	};
 	const action = (
 		<>
-			<button className="ui button primary">Delete</button>
+			<button onClick={onDeleteClick} className="ui button primary">
+				Delete
+			</button>
 			<button onClick={() => history.push('/')} className="ui button">
 				Cancel
 			</button>
@@ -18,9 +28,14 @@ const StreamDelete = () => {
 				title="Delete Stream"
 				content="Are you sure you want to delete this stream?"
 				actions={action}
-				onDismiss={() => history.push('/')}
+				onDismiss={onDismiss}
 			/>
 		</div>
 	);
 };
-export default StreamDelete;
+// const mapStateToProps = (state, ownProps) => {
+// 	return {
+// 		stream: state.streams[ownProps.match.params.id],
+// 	};
+// };
+export default connect(null, { deleteStream })(StreamDelete);
